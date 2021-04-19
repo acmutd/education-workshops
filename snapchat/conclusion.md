@@ -2,7 +2,7 @@
 
 ![Congrats](https://media.giphy.com/media/xT0xezQGU5xCDJuCPe/giphy.gif)
 
-You've now learned how to create a Snapchhat filter using snapchat Lens!
+You've now learned how to create a Snapchat filter using Snapchat Lens Studio!
 
 You can always come to TrackIT to get access to the material.
 
