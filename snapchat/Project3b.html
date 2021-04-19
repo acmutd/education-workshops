@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Customizing Our Marker</title>
+        <style>
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        
+        
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h2 id="customizing-our-marker">Customizing Our Marker</h2>
+<ol>
+<li>
+<p>Find the <code>DoorOpenEffect</code> prefab in the Resources panel and import it into the <code>Image Marker [EDIT_ME]</code> object. Now when your camera finds a comet card it will open like a barn door to a small empty virtual space inside.</p>
+</li>
+<li>
+<p>Now lets take the <code>Temoc_Head</code> prefab and import it into the <code>Image Marker [EDIT_ME]</code> object. You will be able to see it in the Scene panel (center panel).</p>
+</li>
+<li>
+<p>With the <code>Temoc_Head</code> object selected in the object panel we will move, scale, and rotate our Temoc head until it fits inside of the virtual box <code>DoorOpenEffect</code> created for us.
+<img src="https://i.imgur.com/zAPuxH8.png" alt="Move Rotate Scale"></p>
+<blockquote>
+<p>To pan your camera around the Scene Panel hold right click
+To move your camera around the scene hold your MMB (scroll wheel)
+To zoom in/out of your scene use the scroll wheel</p>
+</blockquote>
+<p>This is what your Lens Studio Scene and preview should look like after the transforms are completed, if you were unable to get the temoc in the exact location you can copy the data in the <code>Transform</code> component in the Inspector panel to your own <code>Temoc_Head</code> object:
+<img src="https://i.imgur.com/flhnPos.png" alt="Completed Temoc transforms"></p>
+</li>
+</ol>
+<h2 id="animating-our-model-using-tweens">Animating Our Model Using Tweens</h2>
+<ol>
+<li>While still in the <code>Temoc_Head</code> object we will click <code>+Add Component</code> within the Inspector panel, then add a script component.</li>
+<li>Click <code>Add Script</code> then navigate (or search) for <code>Tween Transform</code>
+<ul>
+<li>Use the following settings in your TweenTransform Script
+<ul>
+<li>Tween Name: <code>move</code> ( A name we will use to reference this specific movement)</li>
+<li>Play Automatically: <code>Disabled</code> (This will allow us to control when it is played)</li>
+<li>Loop Type: <code>None</code></li>
+<li>Type: <code>Move</code></li>
+<li>Movement Type: <code>Offset</code> (We will be adding 15 units to the Vertical [Z] Axis)</li>
+<li>Offset: <code>0.00 | 0.00 | 15.0</code>  [These are X|Y|Z]</li>
+<li>Additive: <code>Enabled</code></li>
+<li>Time: <code>1.50</code> (How long it will take to add all 15 units to Z+)</li>
+<li>Delay: <code>1.00</code> (We will delay for a second to allow the doors to open)</li>
+<li>Is Local: <code>Enabled</code></li>
+<li>Easing Function: <code>Quadratic</code></li>
+<li>Easing Type: <code>Out</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Repeat Step 2 with the following settings:
+<ul>
+<li>Tween Name: <code>rotate</code> ( A name we will use to reference this specific movement)
+<ul>
+<li>Play Automatically: <code>Disabled</code> (This will allow us to control when it is played)</li>
+<li>Loop Type: <code>Loop</code></li>
+<li>Type: <code>Rotate</code></li>
+<li>Movement Type: <code>Offset</code> (We will be adding 180 units to the Rotational [Y] Axis making our object spin)</li>
+<li>Offset: <code>0.00 | 180.00 | 0.00</code>  [These are X|Y|Z]</li>
+<li>Additive: <code>Enabled</code></li>
+<li>Time: <code>3.00</code> (How long it will take to spin 180 degrees)</li>
+<li>Delay: <code>0.00</code></li>
+<li>Is Local: <code>Enabled</code></li>
+<li>Easing Function: <code>Linear</code></li>
+<li>Easing Type: <code>Out</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Repeat Step 2 with the following settings:
+<ul>
+<li>Tween Name: <code>scale</code> ( A name we will use to reference this specific movement)
+<ul>
+<li>Play Automatically: <code>Disabled</code> (This will allow us to control when it is played)</li>
+<li>Loop Type: <code>None</code></li>
+<li>Type: <code>Scale</code></li>
+<li>Movement Type: <code>Offset</code> (We will be adding 0.03 units to all 3 Axis of our object scaling it uniformly)</li>
+<li>Offset: <code>0.03 | 0.03 | 0.03</code>  [These are X|Y|Z]</li>
+<li>Additive: <code>Enabled</code></li>
+<li>Time: <code>2.00</code> (How long it will take to scale)</li>
+<li>Delay: <code>1.00</code> (We want to allow the head to get out of the box before scaling)</li>
+<li>Is Local: <code>Enabled</code></li>
+<li>Easing Function: <code>Quadratic</code></li>
+<li>Easing Type: <code>Out</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Now select the <code>Image Marker[EDIT_ME]</code> Object and add a script component then the <code>TweenChain</code> Script. The TweenChain script will allow us to execute all 3 of our tweens at the same time.
+<ul>
+<li>Use the following settings on the TweenChain:
+<ul>
+<li>Tween Name: <code>temoc</code></li>
+<li>Play Automatically: <code>Disabled</code></li>
+<li>Loop Type: <code>None</code></li>
+<li>Scene Object: <code>Temoc_Head</code> (Navigate to find this in Objects like you would a Resource)</li>
+<li>All At Once: <code>Enabled</code></li>
+<li>Tween Names: Click <code>+Add Value</code> (recall the names we named our tweens in <code>Temoc_Head</code>)
+<ul>
+<li>Value 0: <code>move</code></li>
+<li>Value 1: <code>rotate</code></li>
+<li>Value 2: <code>scale</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Finally we will add a Behavior script to tie the Marker being found to start the tweens. In the objects panel (top-left) click the + mark and search <code>Behavior</code> It will find <code>Helper Scripts</code> which <code>Behavior</code> is in. Add <code>Behavior</code> to our project.</li>
+<li>In the newly created <code>Behavior</code> object set the Script component options to the following settings:
+<ul>
+<li>Trigger: <code>Marker Tracking Event</code> (Our goal is to trigger our tween animations when our marker is found)</li>
+<li>Event Type: <code>Marker Found</code></li>
+<li>Marker Tracking: <code>Image Marker [EDIT_ME]. Marker Tracking</code></li>
+<li>Allow: <code>Always</code></li>
+<li>Delay Time: <code>0.00</code></li>
+<li>Response Type: <code>Run Tween</code> (When our behavior script is triggered by the Marker Foudn event it will run our tween)</li>
+<li>Target Object: <code>Image Marker[EDIT_ME]</code></li>
+<li>Tween Name: <code>temoc</code></li>
+<li>Action: <code>start</code></li>
+</ul>
+</li>
+</ol>
+<p>If everything is done correctly the Lens should be complete! Try it on your Comet Card!</p>
+<h2 id="testing-the-lens">Testing The Lens</h2>
+<p>[This section is only applicable if you have a mobile device with snapchat installed.]
+Now we will pair our Snapchat to our Lens Studio so we can preview our lens before we upload it publicly.</p>
+<ol>
+<li>Click <code>Preview in Snapchat</code> on the top right of Lens Studio.</li>
+<li>Scan the Snapcode displayed on screen like a QR code in Snapchat.</li>
+<li>Push <code>Pair</code> on the prompt that displays after scanning the Snapcode.</li>
+<li>Wait a few moments for the devices to pair, then click <code>Send Lens to Device</code> once it appears where <code>Preview in Snapchat</code> used to be.</li>
+<li>Once it says <code>Lens Sent</code> open the Lens Carousel by tapping the small emoji face near the shutter button.
+<img src="https://i.imgur.com/i1EyeV9.png" alt="Lens Carousel Button"></li>
+<li>Scroll to the right until you find your preview lens.</li>
+</ol>
+<h2 id="done">Done!</h2>
+<p>Publish the lens to your Snapchat account if you would like by clicking <code>Publish Lens</code> at the top-left of Lens Studio, then following the prompts on the website. Make sure you give it a new name and logo in <code>Project Info</code> before you upload.</p>
+
+    </body>
+    </html>
